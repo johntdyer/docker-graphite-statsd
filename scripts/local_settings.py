@@ -108,6 +108,7 @@
 #LDAP_BASE_PASS = "readonly_account_password"
 #LDAP_USER_QUERY = "(username=%s)"  #For Active Directory use "(sAMAccountName=%s)"
 #
+#
 # If you want to further customize the ldap connection options you should
 # directly use ldap.set_option to set the ldap module's global options.
 # For example:
@@ -175,7 +176,20 @@
 #REMOTE_STORE_FETCH_TIMEOUT = 6   # Timeout to fetch series data
 #REMOTE_STORE_FIND_TIMEOUT = 2.5  # Timeout for metric find requests
 #REMOTE_STORE_RETRY_DELAY = 60    # Time before retrying a failed remote webapp
+#REMOTE_STORE_USE_POST = False    # Use POST instead of GET for remote requests
 #REMOTE_FIND_CACHE_DURATION = 300 # Time to cache remote metric find results
+
+## Prefetch cache
+# set to True to fetch all metrics using a single http request per remote server
+# instead of one http request per target, per remote server.
+# Especially useful when generating graphs with more than 4-5 targets or if
+# there's significant latency between this server and the backends. (>20ms)
+#REMOTE_PREFETCH_DATA = False
+
+# During a rebalance of a consistent hash cluster, after a partition event on a replication > 1 cluster,
+# or in other cases we might receive multiple TimeSeries data for a metric key.  Merge them together rather
+# that choosing the "most complete" one (pre-0.9.14 behaviour).
+#REMOTE_STORE_MERGE_RESULTS = True
 
 ## Remote rendering settings
 # Set to True to enable rendering of Graphs on a remote webapp
@@ -194,6 +208,10 @@
 # You *should* use 127.0.0.1 here in most cases
 #CARBONLINK_HOSTS = ["127.0.0.1:7002:a", "127.0.0.1:7102:b", "127.0.0.1:7202:c"]
 #CARBONLINK_TIMEOUT = 1.0
+# Using 'query-bulk' queries for carbon
+# It's more effective, but python-carbon 0.9.13 (or latest from 0.9.x branch) is required
+# See https://github.com/graphite-project/carbon/pull/132 for details
+#CARBONLINK_QUERY_BULK = False
 
 #####################################
 # Additional Django Settings #
@@ -204,3 +222,13 @@
 
 LOG_DIR = '/var/log/graphite'
 SECRET_KEY = '$(date +%s | sha256sum | base64 | head -c 64)'
+
+# Include extra config file with variable, or sensitive configuration options
+# not able to be included in the container defaults
+import sys
+import os
+sys.path.append(os.path.abspath("/config/"))
+try:
+  from graphite_web_extras import *
+except ImportError:
+  print >> sys.stderr, "Could not import graphite_web_extras, using defaults!"

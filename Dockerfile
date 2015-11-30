@@ -19,7 +19,8 @@ RUN apt-get -y --force-yes install vim\
  libcairo2-dev\
  python-cairo\
  pkg-config\
- nodejs
+ nodejs \
+ python-ldap
 
 # python dependencies
 RUN pip install django==1.4\
