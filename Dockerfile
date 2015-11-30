@@ -74,6 +74,8 @@ ADD daemons/graphite.sh /etc/service/graphite/run
 #ADD daemons/statsd.sh /etc/service/statsd/run
 ADD daemons/nginx.sh /etc/service/nginx/run
 
+WORKDIR /
+
 # cleanup
 RUN apt-get clean\
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
