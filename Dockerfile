@@ -31,19 +31,19 @@ RUN pip install django==1.4\
  pytz
 
 # install graphite
-RUN git clone -b 0.9.14 --depth 1 https://github.com/graphite-project/graphite-web.git /usr/local/src/graphite-web
+RUN git clone -b 0.9.15 --depth 1 https://github.com/graphite-project/graphite-web.git /usr/local/src/graphite-web
 WORKDIR /usr/local/src/graphite-web
 RUN python ./setup.py install
 ADD scripts/local_settings.py /opt/graphite/webapp/graphite/local_settings.py
 ADD conf/graphite/ /opt/graphite/conf/
 
 # install whisper
-RUN git clone -b 0.9.14 https://github.com/graphite-project/whisper.git /usr/local/src/whisper
+RUN git clone -b 0.9.15 --depth 1 https://github.com/graphite-project/whisper.git /usr/local/src/whisper
 WORKDIR /usr/local/src/whisper
-RUN git checkout be12ee7 && python ./setup.py install
+RUN python ./setup.py install
 
 # install carbon
-RUN git clone -b 0.9.14 --depth 1 https://github.com/graphite-project/carbon.git /usr/local/src/carbon
+RUN git clone -b 0.9.15 --depth 1 https://github.com/graphite-project/carbon.git /usr/local/src/carbon
 WORKDIR /usr/local/src/carbon
 RUN python ./setup.py install
 
