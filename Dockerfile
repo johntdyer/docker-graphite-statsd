@@ -22,26 +22,27 @@ RUN apt-get -y --force-yes install vim\
  nodejs
 
 # python dependencies
-RUN pip install django==1.3\
- python-memcached==1.53\
+RUN pip install django==1.4\
+ python-memcached==1.57\
  django-tagging==0.3.1\
  twisted==11.1.0\
- txAMQP==0.6.2
+ txAMQP==0.6.2\
+ pytz
 
 # install graphite
-RUN git clone -b 0.9.12 --depth 1 https://github.com/graphite-project/graphite-web.git /usr/local/src/graphite-web
+RUN git clone -b 0.9.14 --depth 1 https://github.com/graphite-project/graphite-web.git /usr/local/src/graphite-web
 WORKDIR /usr/local/src/graphite-web
 RUN python ./setup.py install
 ADD scripts/local_settings.py /opt/graphite/webapp/graphite/local_settings.py
 ADD conf/graphite/ /opt/graphite/conf/
 
 # install whisper
-RUN git clone -b 0.9.12 --depth 1 https://github.com/graphite-project/whisper.git /usr/local/src/whisper
+RUN git clone -b 0.9.14 https://github.com/graphite-project/whisper.git /usr/local/src/whisper
 WORKDIR /usr/local/src/whisper
-RUN python ./setup.py install
+RUN git checkout be12ee7 && python ./setup.py install
 
 # install carbon
-RUN git clone -b 0.9.12 --depth 1 https://github.com/graphite-project/carbon.git /usr/local/src/carbon
+RUN git clone -b 0.9.14 --depth 1 https://github.com/graphite-project/carbon.git /usr/local/src/carbon
 WORKDIR /usr/local/src/carbon
 RUN python ./setup.py install
 
@@ -56,6 +57,7 @@ ADD conf/nginx/graphite.conf /etc/nginx/sites-available/graphite.conf
 RUN ln -s /etc/nginx/sites-available/graphite.conf /etc/nginx/sites-enabled/graphite.conf
 
 # init django admin
+ENV LANG=en_US.UTF-8
 ADD scripts/django_admin_init.exp /usr/local/bin/django_admin_init.exp
 RUN /usr/local/bin/django_admin_init.exp
 
