@@ -1,7 +1,9 @@
 FROM phusion/baseimage:0.9.17
 MAINTAINER Nathan Hopkins <natehop@gmail.com>
 
-#RUN echo deb http://archive.ubuntu.com/ubuntu $(lsb_release -cs) main universe > /etc/apt/sources.list.d/universe.list
+RUN curl -k -sS http://nginx.org/keys/nginx_signing.key | apt-key add -v -
+RUN echo deb http://nginx.org/packages/mainline/ubuntu/ $(lsb_release -cs) nginx > /etc/apt/sources.list.d/nginx.list
+
 RUN apt-get -y update\
  && apt-get -y upgrade
 
@@ -52,10 +54,9 @@ RUN python ./setup.py install
 #ADD conf/statsd/config.js /opt/statsd/config.js
 
 # config nginx
-RUN rm /etc/nginx/sites-enabled/default
+RUN rm /etc/nginx/conf.d/default.conf
 ADD conf/nginx/nginx.conf /etc/nginx/nginx.conf
-ADD conf/nginx/graphite.conf /etc/nginx/sites-available/graphite.conf
-RUN ln -s /etc/nginx/sites-available/graphite.conf /etc/nginx/sites-enabled/graphite.conf
+ADD conf/nginx/graphite.conf /etc/nginx/conf.d/graphite.conf
 
 # init django admin
 ENV LANG=en_US.UTF-8
