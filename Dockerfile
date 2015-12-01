@@ -81,6 +81,6 @@ RUN apt-get clean\
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # defaults
-EXPOSE 80:80 2003:2003 8125:8125/udp
+EXPOSE 80:80 2003:2003 2004:2004 2023:2023 2024:2024 8125:8125/udp
 ENV HOME /root
 CMD ["/sbin/my_init"]

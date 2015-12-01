@@ -34,12 +34,15 @@ That's it, you're done ... almost.
 
 ### Mapped Ports
 
-| Host | Container | Service |
-| ---- | --------- | ------- |
-|   80 |        80 | nginx   |
-| 2003 |      2003 | carbon  |
-| 8125 |      8125 | statsd  |
-| 8126 |      8126 | admin   |
+| Host | Container | Service                  |
+| ---- | --------- | ------------------------ |
+|   80 |        80 | nginx                    |
+| 2003 |      2003 | carbon                   |
+| 2004 |      2004 | carbon pickle            |
+| 2023 |      2023 | carbon-aggregator        |
+| 2024 |      2024 | carbon-aggregator pickle |
+| 8125 |      8125 | statsd                   |
+| 8126 |      8126 | admin                    |
 
 ### Mounted Volumes
 
