@@ -42,7 +42,7 @@ That's it, you're done ... almost.
 | 2023 |      2023 | carbon-aggregator        |
 | 2024 |      2024 | carbon-aggregator pickle |
 | 8125 |      8125 | statsd                   |
-| 8126 |      8126 | admin                    |
+| 8126 |      8126 | statsd admin             |
 
 ### Mounted Volumes
 

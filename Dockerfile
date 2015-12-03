@@ -50,8 +50,8 @@ WORKDIR /usr/local/src/carbon
 RUN python ./setup.py install
 
 # install statsd
-#RUN git clone -b v0.7.2 --depth 1 https://github.com/etsy/statsd.git /opt/statsd
-#ADD conf/statsd/config.js /opt/statsd/config.js
+RUN git clone -b v0.7.2 --depth 1 https://github.com/etsy/statsd.git /opt/statsd
+ADD conf/statsd/config.js /opt/statsd/config.js
 
 # config nginx
 RUN rm /etc/nginx/conf.d/default.conf
@@ -72,7 +72,7 @@ RUN chmod 644 /etc/logrotate.d/graphite
 ADD daemons/carbon.sh /etc/service/carbon/run
 ADD daemons/carbon-aggregator.sh /etc/service/carbon-aggregator/run
 ADD daemons/graphite.sh /etc/service/graphite/run
-#ADD daemons/statsd.sh /etc/service/statsd/run
+ADD daemons/statsd.sh /etc/service/statsd/run
 ADD daemons/nginx.sh /etc/service/nginx/run
 
 WORKDIR /
@@ -82,6 +82,6 @@ RUN apt-get clean\
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # defaults
-EXPOSE 80:80 2003:2003 2004:2004 2023:2023 2024:2024 8125:8125/udp
+EXPOSE 80:80 2003:2003 2004:2004 2023:2023 2024:2024 8125:8125/udp 8126:8126
 ENV HOME /root
 CMD ["/sbin/my_init"]
