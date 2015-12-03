@@ -75,6 +75,8 @@ ADD daemons/graphite.sh /etc/service/graphite/run
 ADD daemons/statsd.sh /etc/service/statsd/run
 ADD daemons/nginx.sh /etc/service/nginx/run
 
+ADD scripts/10_daemon_control.sh /etc/my_init.d/10_daemon_control.sh
+
 WORKDIR /
 
 # cleanup

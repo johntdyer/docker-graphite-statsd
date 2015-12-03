@@ -133,6 +133,30 @@ echo counters | nc localhost 8126
 
 more info and additional commands: [admin_interface](https://github.com/etsy/statsd/blob/master/docs/admin_interface.md) 
 
+## Disable unused services
+
+If you wish to disable individual services, you can do so through environment variables.
+
+```sh
+DISABLE_CARBON=1
+DISABLE_CARBON_AGGREGATOR=1
+DISABLE_GRAPHITE_WEB=1
+DISABLE_NGINX=1
+DISABLE_STATSD=1
+```
+
+Example:
+
+```sh
+sudo docker run -d \
+  --name graphite \
+  --restart=always \
+  -e DISABLE_STATSD=1 \
+  -p 80:80 \
+  -p 2003:2003 \
+  hopsoft/graphite-statsd
+```
+
 ## A Note on Disk Space
 
 If running this image on cloud infrastructure such as AWS,
