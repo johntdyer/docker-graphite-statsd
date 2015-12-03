@@ -75,6 +75,7 @@ ADD daemons/graphite.sh /etc/service/graphite/run
 ADD daemons/statsd.sh /etc/service/statsd/run
 ADD daemons/nginx.sh /etc/service/nginx/run
 
+ADD scripts/01_make_log_dirs.sh /etc/my_init.d/01_make_log_dirs.sh
 ADD scripts/10_daemon_control.sh /etc/my_init.d/10_daemon_control.sh
 
 WORKDIR /
@@ -85,5 +86,6 @@ RUN apt-get clean\
 
 # defaults
 EXPOSE 80:80 2003:2003 2004:2004 2023:2023 2024:2024 8125:8125/udp 8126:8126
+VOLUME ["/opt/graphite/storage", "/var/log"]
 ENV HOME /root
 CMD ["/sbin/my_init"]
