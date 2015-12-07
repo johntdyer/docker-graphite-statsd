@@ -227,7 +227,7 @@ SECRET_KEY = '$(date +%s | sha256sum | base64 | head -c 64)'
 # not able to be included in the container defaults
 import sys
 import os
-sys.path.append(os.path.abspath("/config/"))
+sys.path.append(os.path.abspath("/opt/graphite/conf/extras/"))
 try:
   from graphite_web_extras import *
 except ImportError:
