@@ -48,10 +48,7 @@ That's it, you're done ... almost.
 
 | Host              | Container                  | Notes                           |
 | ----------------- | -------------------------- | ------------------------------- |
-| DOCKER ASSIGNED   | /opt/graphite              | graphite config & stats storage |
-| DOCKER ASSIGNED   | /etc/nginx                 | nginx config                    |
-| DOCKER ASSIGNED   | /opt/statsd                | statsd config                   |
-| DOCKER ASSIGNED   | /etc/logrotate.d           | logrotate config                |
+| DOCKER ASSIGNED   | /opt/graphite/storage      | graphite metrics storage        |
 | DOCKER ASSIGNED   | /var/log                   | log files                       |
 
 ### Base Image
