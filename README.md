@@ -16,9 +16,10 @@ sudo docker run -d \
   --restart=always \
   -p 80:80 \
   -p 2003:2003 \
+  -p 2003:2003/udp \
   -p 8125:8125/udp \
   -p 8126:8126 \
-  hopsoft/graphite-statsd
+  tropo/graphite-statsd
 ```
 
 This starts a Docker container named: **graphite**
@@ -173,5 +174,5 @@ Build the image yourself.
 
 ### Linux
 
-1. `git clone https://github.com/hopsoft/docker-graphite-statsd.git`
-1. `sudo docker build -t hopsoft/graphite-statsd ./docker-graphite-statsd`
+1. `git clone https://github.com/johntdyer/docker-graphite-statsd.git`
+1. `sudo docker build -t tropo/graphite-statsd ./docker-graphite-statsd`
